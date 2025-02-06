@@ -1,7 +1,7 @@
 
-CREATE DATABASE cabinet_medical;
+CREATE DATABASE cabinet_mdical;
 
-\c cabinet_medical;
+\c cabinet_mdical;
 
 
 
