@@ -5,7 +5,7 @@ class Database {
     private $connection;
 
     public function __construct() {
-        $dsn = "pgsql:host=localhost;dbname=medical_management;user=your_username;password=your_password";
+        $dsn = "pgsql:host=localhost;dbname=cabinet_medical;user=postgesql;password=2001";
         $this->connection = new \PDO($dsn);
         $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }

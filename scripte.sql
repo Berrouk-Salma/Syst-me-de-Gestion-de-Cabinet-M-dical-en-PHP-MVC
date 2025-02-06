@@ -1,10 +1,12 @@
 
-CREATE DATABASE medical_management;
+CREATE DATABASE cabinet_medical;
 
-\c medical_management;
+\c cabinet_medical;
 
 
-CREATE TABLE patients (
+
+-- Create Patients Table
+CREATE TABLE IF NOT EXISTS patients (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
@@ -16,7 +18,8 @@ CREATE TABLE patients (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE doctors (
+-- Create Doctors Table
+CREATE TABLE IF NOT EXISTS doctors (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
@@ -26,7 +29,8 @@ CREATE TABLE doctors (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE appointments (
+-- Create Appointments Table
+CREATE TABLE IF NOT EXISTS appointments (
     id SERIAL PRIMARY KEY,
     patient_id INT REFERENCES patients(id) ON DELETE CASCADE,
     doctor_id INT REFERENCES doctors(id) ON DELETE CASCADE,
@@ -36,7 +40,8 @@ CREATE TABLE appointments (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE users (
+-- Create Users Table
+CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
@@ -44,17 +49,23 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- INSERT INTO patients (first_name, last_name, date_of_birth, gender, phone_number, email, address)
--- VALUES
--- ('John', 'Doe', '1990-05-15', 'Male', '1234567890', 'john.doe@example.com', '123 Main St'),
--- ('Jane', 'Smith', '1985-10-22', 'Female', '0987654321', 'jane.smith@example.com', '456 Elm St');
+-- Insert Sample Data for Patients
+INSERT INTO patients (first_name, last_name, date_of_birth, gender, phone_number, email, address)
+VALUES
+('John', 'Doe', '1990-05-15', 'Male', '1234567890', 'john.doe@example.com', '123 Main St'),
+('Jane', 'Smith', '1985-10-22', 'Female', '0987654321', 'jane.smith@example.com', '456 Elm St')
+ON CONFLICT (email) DO NOTHING;  -- Prevents duplicates
 
--- INSERT INTO doctors (first_name, last_name, specialization, phone_number, email)
--- VALUES
--- ('Alice', 'Johnson', 'Cardiologist', '1112223333', 'alice.johnson@example.com'),
--- ('Bob', 'Brown', 'Dermatologist', '4445556666', 'bob.brown@example.com');
+-- Insert Sample Data for Doctors
+INSERT INTO doctors (first_name, last_name, specialization, phone_number, email)
+VALUES
+('Alice', 'Johnson', 'Cardiologist', '1112223333', 'alice.johnson@example.com'),
+('Bob', 'Brown', 'Dermatologist', '4445556666', 'bob.brown@example.com')
+ON CONFLICT (email) DO NOTHING;
 
--- INSERT INTO appointments (patient_id, doctor_id, appointment_date, status, notes)
--- VALUES
--- (1, 1, '2023-11-15 10:00:00', 'Scheduled', 'Routine checkup'),
--- (2, 2, '2023-11-16 14:30:00', 'Scheduled', 'Skin allergy consultation');
+-- Insert Sample Data for Appointments
+INSERT INTO appointments (patient_id, doctor_id, appointment_date, status, notes)
+VALUES
+(1, 1, '2023-11-15 10:00:00', 'Scheduled', 'Routine checkup'),
+(2, 2, '2023-11-16 14:30:00', 'Scheduled', 'Skin allergy consultation')
+ON CONFLICT DO NOTHING;
