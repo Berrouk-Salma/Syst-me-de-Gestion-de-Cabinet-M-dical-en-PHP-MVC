@@ -20,4 +20,9 @@ class Router {
         }
     }
 }
+
+
+$router->addRoute('/appointments', 'app\Controllers\AppointmentsController', 'index');
+$router->addRoute('/appointments/add', 'app\Controllers\AppointmentsController', 'add');
+
 ?>
