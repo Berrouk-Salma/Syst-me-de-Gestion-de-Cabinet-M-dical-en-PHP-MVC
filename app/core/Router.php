@@ -25,4 +25,6 @@ class Router {
 $router->addRoute('/appointments', 'app\Controllers\AppointmentsController', 'index');
 $router->addRoute('/appointments/add', 'app\Controllers\AppointmentsController', 'add');
 
+$router->addRoute('/login', 'app\Controllers\AuthController', 'login');
+$router->addRoute('/logout', 'app\Controllers\AuthController', 'logout');
 ?>
